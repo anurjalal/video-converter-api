@@ -12,7 +12,7 @@ from flask import Flask, request, abort, jsonify, session
 from collections import Counter
 from celery.utils.log import get_task_logger
 from celery.result import AsyncResult
-from celery import Celery
+from celery import Celery, Task
 from celery_config import make_celery
 from werkzeug.utils import secure_filename
 
@@ -35,21 +35,21 @@ class Video():
 def before_first_request_func():
     session["filename"] = list()
 
-@celery.task(name='converter-task')
+@celery.task()
 def video_converter(unique_path, ext, crf, fps):
     filename, _ = os.path.splitext(unique_path)
     logger.info(f'{filename}')
     print(str(unique_path))
+    filename = filename.split('/')[1]
     s_filename = secure_filename(filename)
-    celery_logger.info(f'{s_filename}')
-    s_filename = secure_filename.splitext('/')[1]
+    logger.info(f'{s_filename}')
     in_path = os.path.abspath(os.path.join(os.getcwd(), UPLOAD_FOLDER, unique_path))
     unique_filename = f'{s_filename}{ext}'
     #command = f'ffmpeg -i {in_path} -crf={crf} -filter:v fps={fps} {unique_filename}'
-    out_path = os.path.abspath(os.path.join(os.getcwd, RESULT_FOLDER, unique_filename))
-    command = ['ffmpeg','-y', '-i', '-crf='+str(crf), '-filter:v', 'fps='+str(fps), str(unique_filename)] 
-    process = sp.Popen(command, stdin=subprocess.PIPE)
-    process.communicate(in_path)
+    out_path = os.path.abspath(os.path.join(os.getcwd(), RESULT_FOLDER, unique_filename))
+    command = ['ffmpeg', '-y' ,'-i', str(in_path), '-crf', str(crf), '-filter:v' ,f'fps=fps={fps}' , str(out_path)] 
+    process = sp.Popen(command)
+    process.communicate()
     return out_path
 
 @celery.task(name='file-saving-task')
