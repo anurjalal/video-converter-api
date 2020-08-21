@@ -18,8 +18,8 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config.update(
-    CELERY_BROKER_URL='amqp://myuser:mypassword@localhost:5672/myvhost',
-    CELERY_RESULT_BACKEND='rpc://'
+    CELERY_BROKER_URL='redis://localhost:6379/0',
+    CELERY_RESULT_BACKEND='redis://localhost:6379/0'
 )
 celery = make_celery(app)
 logger = logging.getLogger(__name__)
