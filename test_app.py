@@ -6,13 +6,8 @@ import io
 import json
 
 class VideoConverterApi(unittest.TestCase):
-    """This class represents the agency test case"""
 
-    testdir = 'testvid'
-    unique_path = ""
-    session_upload_key = "upload_filename"
     def setUp(self):
-        """Define test variables and initialize app."""
 
         self.app = app
         self.client = self.app.test_client
