@@ -10,13 +10,13 @@ class Validation():
         err = 0
         msg = ""
         if(unique_path == None or ""):
-            msg = msg+(invalid_msg_template("path"))
+            msg = msg+(self.invalid_msg_template("path"))
             err+=1
         if(ext == None or ""):
-            msg = msg+(invalid_msg_template("ext"))
+            msg = msg+(self.invalid_msg_template("ext"))
             err+=1
         if(not re.match(r'\.',ext)):
-            msg = msg+(invalid_msg_template("ext"))
+            msg = msg+(self.invalid_msg_template("ext"))
             err+=1
         else:
             ext_without_dot = ext.split('.')[-1]
@@ -30,10 +30,10 @@ class Validation():
                     msg = msg + f'File location invalid. '
                     err+=1
         if(crf == None or ""):
-            msg = msg+(invalid_msg_template("crf"))
+            msg = msg+(self.invalid_msg_template("crf"))
             err+=1
         if(fps == None or ""):
-            msg = msg+(invalid_msg_template("fps"))
+            msg = msg+(self.invalid_msg_template("fps"))
             err+=1
         if(not fps.isnumeric()):
             msg = msg+ "fps should be a number. "
