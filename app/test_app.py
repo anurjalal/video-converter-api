@@ -1,7 +1,7 @@
 import os
 import unittest
 from datetime import datetime
-from app import app
+from app import *
 import io
 import json
 
