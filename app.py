@@ -5,7 +5,7 @@ sys.path.insert(1, 'config/')
 import os
 import logging
 from datetime import datetime
-from config import *
+from config import UPLOAD_FOLDER, RESULT_FOLDER, SECRET_KEY
 from flask import Flask, request, jsonify, session, send_from_directory, Response
 from celery.utils.log import get_task_logger
 from celery.result import AsyncResult
