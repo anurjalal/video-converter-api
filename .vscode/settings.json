@@ -1,5 +1,0 @@
-{
-    "python.pythonPath": "/home/lav/anaconda3/envs/cv/bin/python",
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
-}
