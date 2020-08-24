@@ -1,8 +1,8 @@
-
 import os
 
-class PathHelper():
-    
+
+class PathHelper:
+
     def __init__(self, abs_path):
         self._abs_path = abs_path
 

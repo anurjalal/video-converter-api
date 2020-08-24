@@ -1,7 +1,8 @@
 import os
 
-class FileHelper():
-    
+
+class FileHelper:
+
     def __init__(self, filename):
         self._filename = filename
 
@@ -9,7 +10,7 @@ class FileHelper():
         return self._filename
 
     def get_ext(self):
-        _ , ext = os.path.splitext(self._filename)
+        _, ext = os.path.splitext(self._filename)
         return ext
 
     def get_filename_modifiers(self):
@@ -17,5 +18,5 @@ class FileHelper():
         return filename_modifiers
 
     def get_ext_without_dot(self):
-         ext_without_dot = self.get_ext().replace('.', '')
-         return ext_without_dot
+        ext_without_dot = self.get_ext().replace('.', '')
+        return ext_without_dot
