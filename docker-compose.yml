@@ -1,29 +1,30 @@
 version: '3'
 services:
   redis:
-      container_name: redis
-      image: redis:latest
+      image: redis:alpine
       hostname: redis
+      ports:
+        - "6379:6379"
   web:
-      build: ./app
+      build: .
       hostname: web
-      command: ./scripts/run_server.sh
+      command : "flask run"
       volumes:
-        - ./app:/app
+        - .:/app
       ports:
         - "5000:5000"
       environment:
-      - FLASK_ENV=development
-  worker:
-      build:
-        context: ./app
-        dockerfile: Dockerfile
-      hostname: worker
-      entrypoint: celery
-      command: ./scripts/run_celery.sh
-      volumes:
-        - ./app:/app
-      links:
-        - redis 
+        FLASK_ENV : development
       depends_on:
+        - ffmpeg
+  ffmpeg:
+      image: jrottenberg/ffmpeg
+  worker:
+      build: .
+      command: "celery -A app.celery worker -l info"
+      volumes:
+        - .:/app
+      links:
         - redis
+      depends_on:
+        - ffmpeg
