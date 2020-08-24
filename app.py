@@ -75,7 +75,7 @@ def video_converter(unique_path, ext, crf, fps):
     file_helper = FileHelper(unique_path)
     out_path = VideoHelper(file_helper).generate_converted_pathname(ext, RESULT_FOLDER)
     converter = VideoConverter(in_path, out_path)
-    if converter.convert(ext, crf, fps):
+    if converter.convert(crf, fps):
         err = 0
         return err, out_path
     else:

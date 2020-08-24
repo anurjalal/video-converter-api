@@ -25,8 +25,8 @@ class Validation:
                 err += 1
             else:
                 file_path = os.path.abspath(os.path.join(os.getcwd(), UPLOAD_FOLDER, unique_path))
-                isPathExist = os.path.isfile(file_path)
-                if not isPathExist:
+                is_path_exist = os.path.isfile(file_path)
+                if not is_path_exist:
                     msg = msg + f'File location invalid. '
                     err += 1
         if crf is None or "":
